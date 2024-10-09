@@ -7,13 +7,20 @@ import pickle
 import boto3
 import os
 import json
-import time
+import datetime
 import psycopg2
 
 
 # Initialize S3 client outside the handler
 s3_client = boto3.client('s3', aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
                          aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
+
+# Initialize RDS client outside the handler
+db_host = os.environ['DB_HOST']
+db_user = os.environ['DB_USER']
+db_password = os.environ['DB_PASSWORD']
+db_name = os.environ['DB_NAME']
+db_port = os.environ.get('DB_PORT', 5432)
 
 # load env variables
 bucket_name = os.environ['bucket_name']
@@ -50,10 +57,39 @@ def is_spam(message):
     else:
         return False
     
-def save_reesults_to_rds(message, prediction):
-
-
-
+def create_prediction_table():
+    connection = psycopg2.connect(
+        host=db_host,
+        user=db_user,
+        password=db_password,
+        database=db_name,
+        port=db_port
+    )
+    try:
+        with connection.cursor() as cursor:
+            sql = "CREATE TABLE IF NOT EXISTS predictions (id SERIAL PRIMARY KEY, message TEXT, prediction BOOLEAN, timestamp TIMESTAMP)"
+            cursor.execute(sql)
+            connection.commit()
+    finally:
+        connection.close()
+    
+def save_results_to_rds(message, prediction):
+    connection = psycopg2.connect(
+        host=db_host,
+        user=db_user,
+        password=db_password,
+        database=db_name,
+        port=db_port
+    )
+    try:
+        with connection.cursor() as cursor:
+            sql = "INSERT INTO predictions (message, prediction, timestamp) VALUES (%s, %s, %s)"
+            cursor.execute(sql, (message, prediction, datetime.datetime.now()))
+            connection.commit()
+    finally:
+        connection.close()
+        
+# Lambda handler
 def lambda_handler(event, context):
     body = event.get('body', '')
     data = json.loads(body)
@@ -75,7 +111,8 @@ def lambda_handler(event, context):
             Body=json.dumps(response),
             ContentType='application/json'
     )
-    
+    # Save the result to Aurora PostgreSQL
+    save_results_to_rds(message, prediction)
     
     # output the prediction result
     return {
