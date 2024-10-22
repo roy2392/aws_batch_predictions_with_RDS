@@ -8,11 +8,15 @@ import boto3
 import os
 import json
 import time
-import psycopg2
+# import psycopg2
+
+aws_access_key_id = os.environ['AWS_ACCESS_ID']
+aws_secret_access_key = os.environ['AWS_SECRET_KEY_VAL']
+
 
 # Initialize S3 client outside the handler
-s3_client = boto3.client('s3', aws_access_key_id=os.environ['AWS_ACCESS_ID'],
-                         aws_secret_access_key=os.environ['AWS_SECRET_KEY_VAL'])
+s3_client = boto3.client('s3', aws_access_key_id=aws_access_key_id,
+                         aws_secret_access_key=aws_secret_access_key)
 
 # load env variables
 bucket_name = os.environ['BUCKET_NAME']
