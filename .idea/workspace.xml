@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07b75e94-bc3a-44c2-a73b-a179e9bea1f2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/diagram.py" afterDir="false" />
-    </list>
+    <list default="true" id="07b75e94-bc3a-44c2-a73b-a179e9bea1f2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +33,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.diagram.executor": "Run",
     "Python.lambda_s3_to_postgres_rds.executor": "Run",
     "Python.lambda_s3_to_s3.executor": "Debug",
     "Python.spamclassifierapi.executor": "Run",
@@ -95,7 +94,7 @@
       <updated>1728219364764</updated>
       <workItem from="1728219366526" duration="6012000" />
       <workItem from="1728496206986" duration="2457000" />
-      <workItem from="1729587602361" duration="7169000" />
+      <workItem from="1729587602361" duration="7584000" />
     </task>
     <servers />
   </component>
@@ -121,6 +120,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/aws_batch_predictions_with_RDS$diagram.coverage" NAME="diagram Coverage Results" MODIFIED="1729595157964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/aws_batch_predictions_with_RDS$spamclassifierapi.coverage" NAME="lambda_s3_to_postgres_rds Coverage Results" MODIFIED="1729594035761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
