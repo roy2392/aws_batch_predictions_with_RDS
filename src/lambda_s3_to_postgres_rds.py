@@ -10,7 +10,6 @@ import json
 import time
 import psycopg2
 import datetime
-from sqlalchemy import create_engine
 
 # Initialize aws credentials
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_ID']
@@ -18,7 +17,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_KEY_VAL']
 
 # Initialize S3 client outside the handler
 s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
-                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+                  aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 # Load env variables
 bucket_name = os.environ['BUCKET_NAME']
@@ -43,54 +42,71 @@ response = s3.get_object(Bucket=bucket_name, Key=f'{artifact_folder}{vectorizer_
 body = response['Body'].read()
 vectorizer = pickle.loads(body)
 
+
 def is_spam(inp):
     print(inp)
     inp = pd.Series(inp)
     inp_test = vectorizer.transform(inp)
     inp_sonuc = model.predict(inp_test)
-
+    
     if inp_sonuc == 'spam':
         return True
     else:
         return False
 
+
 def lambda_handler(event, context):
     body_json = json.loads(event['body'])
     text_value = body_json['text']
     result = is_spam(text_value)
-    timestemp = datetime.date.today().strftime("%B %d, %Y")
-
+    timestamp = datetime.date.today().strftime("%Y-%m-%d")
+    
     print("trying to write")
-    new_row = pd.DataFrame([[text_value, result, timestemp]],
-                           columns=['text', 'prediction_result', 'timestamp'])
-
-    # Create SQLAlchemy engine
-    engine = create_engine(f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}')
-
-    # Insert the DataFrame into the PostgreSQL table
-    new_row.to_sql(output_table, engine, if_exists='append', index=False)
-    print("success")
-
-    # Query the table to verify insertion
-    with engine.connect() as conn:
-        df = pd.read_sql_query(query, conn)
-        print(df)
-
+    
+    # Connect to the database
+    conn = psycopg2.connect(
+            host=host,
+            port=port,
+            dbname=dbname,
+            user=user,
+            password=password
+    )
+    
+    try:
+        with conn.cursor() as cur:
+            # Create table if it doesn't exist
+            cur.execute(f"""
+                CREATE TABLE IF NOT EXISTS {output_table} (
+                    id SERIAL PRIMARY KEY,
+                    text TEXT,
+                    prediction_result BOOLEAN,
+                    timestamp DATE
+                )
+            """)
+            
+            # Insert new row
+            cur.execute(f"""
+                INSERT INTO {output_table} (text, prediction_result, timestamp)
+                VALUES (%s, %s, %s)
+            """, (text_value, result, timestamp))
+            
+            conn.commit()
+            
+            print("success")
+            
+            # Fetch and print all rows
+            cur.execute(query)
+            rows = cur.fetchall()
+            for row in rows:
+                print(row)
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        conn.rollback()
+    finally:
+        conn.close()
+    
     return {
             'statusCode': 200,
             'body'      : json.dumps({'result': result})
     }
-
-if __name__ == "__main__":
-    import json
-
-    # Load test event
-    with open('src/tests/test_event.json', 'r') as f:
-        test_event = json.load(f)
-
-    # Simulate context (can be an empty object for testing)
-    test_context = {}
-
-    # Call the lambda_handler function
-    result = lambda_handler(test_event, test_context)
-    print(result)
