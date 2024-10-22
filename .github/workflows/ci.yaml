@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'  # Specify the Python version you're using
+          python-version: '3.10'  # Ensure this is the correct version for your project
 
       - name: Install dependencies
         run: |
@@ -39,7 +39,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "${{ secrets.AWS_REGION }}"
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
 
 #      - name: Trigger SNS notification
 #        run: |
@@ -49,6 +49,4 @@ jobs:
 #        env:
 #          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 #          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          AWS_DEFAULT_REGION: "${{ secrets.AWS_REGION }}"
-
-
+#          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
