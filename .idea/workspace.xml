@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07b75e94-bc3a-44c2-a73b-a179e9bea1f2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lambda_s3_to_postgres_rds.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/test_event.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spamclassifierapi.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambda_s3_to_s3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lambda_s3_to_postgres_rds.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambda_s3_to_postgres_rds.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +37,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.lambda_s3_to_s3.executor": "Run",
+    "Python.lambda_s3_to_postgres_rds.executor": "Run",
+    "Python.lambda_s3_to_s3.executor": "Debug",
     "Python.spamclassifierapi.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -56,7 +57,7 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="lambda_s3_to_s3" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <configuration name="lambda_s3_to_postgres_rds" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="aws_batch_predictions_with_RDS" />
       <option name="ENV_FILES" value="$PROJECT_DIR$/.env" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -68,7 +69,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/lambda_s3_to_s3.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/lambda_s3_to_postgres_rds.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -96,7 +97,7 @@
       <updated>1728219364764</updated>
       <workItem from="1728219366526" duration="6012000" />
       <workItem from="1728496206986" duration="2457000" />
-      <workItem from="1729587602361" duration="3428000" />
+      <workItem from="1729587602361" duration="6374000" />
     </task>
     <servers />
   </component>
@@ -122,6 +123,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/aws_batch_predictions_with_RDS$spamclassifierapi.coverage" NAME="lambda_s3_to_s3 Coverage Results" MODIFIED="1729591157863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/aws_batch_predictions_with_RDS$spamclassifierapi.coverage" NAME="lambda_s3_to_postgres_rds Coverage Results" MODIFIED="1729594035761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
