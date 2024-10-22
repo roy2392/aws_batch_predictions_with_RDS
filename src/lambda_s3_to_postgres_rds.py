@@ -49,6 +49,7 @@ def is_spam(inp):
     inp_test = vectorizer.transform(inp)
     inp_sonuc = model.predict(inp_test)
     
+    
     if inp_sonuc == 'spam':
         return True
     else:
