@@ -1,5 +1,7 @@
 # Spam Detection Lambda Function
 
+![Spam Detection](spam_detection_pipeline.png)
+
 This project implements a serverless spam detection system using AWS Lambda, S3, and PostgreSQL. It uses a pre-trained machine learning model to classify text as spam or not spam, and stores the results in a database.
 
 ## Features
