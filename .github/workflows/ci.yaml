@@ -24,7 +24,7 @@ jobs:
           pip install pytest
 
       - name: Run tests
-        run: pytest tests/test_my_lambda.py
+        run: pytest tests/test_lambda.py
 
       - name: Install zip
         uses: montudor/action-zip@v1
