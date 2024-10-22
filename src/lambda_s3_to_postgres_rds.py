@@ -10,6 +10,7 @@ import json
 import time
 import psycopg2
 import datetime
+from sqlalchemy import create_engine
 
 # Initialize aws credentials
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_ID']
@@ -19,8 +20,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_KEY_VAL']
 s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
                          aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-
-# load env variables
+# Load env variables
 bucket_name = os.environ['BUCKET_NAME']
 artifact_folder = os.environ['MODEL_FOLDER']
 model_name_s3 = 'Model.pkl'
@@ -33,13 +33,12 @@ port = os.environ['DB_PORT']
 output_table = os.environ['DB_TABLE']
 query = f"SELECT * FROM {output_table}"
 
-
-# load model pkl
+# Load model pkl
 response = s3.get_object(Bucket=bucket_name, Key=f'{artifact_folder}{model_name_s3}')
 body = response['Body'].read()
 model = pickle.loads(body)
 
-# load vectorizer pkl
+# Load vectorizer pkl
 response = s3.get_object(Bucket=bucket_name, Key=f'{artifact_folder}{vectorizer_name_s3}')
 body = response['Body'].read()
 vectorizer = pickle.loads(body)
@@ -49,13 +48,11 @@ def is_spam(inp):
     inp = pd.Series(inp)
     inp_test = vectorizer.transform(inp)
     inp_sonuc = model.predict(inp_test)
-    
+
     if inp_sonuc == 'spam':
         return True
     else:
         return False
-
-
 
 def lambda_handler(event, context):
     body_json = json.loads(event['body'])
@@ -65,13 +62,20 @@ def lambda_handler(event, context):
 
     print("trying to write")
     new_row = pd.DataFrame([[text_value, result, timestemp]],
-                           columns=['text', 'prediction_result', 'current_timestamp'])
-    with psycopg2.connect("host='{}' port={} dbname='{}' user={} password={}".format(host, port, dbname, user,
-                                                                                     password)) as conn:
-        new_row.to_sql(conn, if_exists='append')
-        print("succses")
+                           columns=['text', 'prediction_result', 'timestamp'])
+
+    # Create SQLAlchemy engine
+    engine = create_engine(f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}')
+
+    # Insert the DataFrame into the PostgreSQL table
+    new_row.to_sql(output_table, engine, if_exists='append', index=False)
+    print("success")
+
+    # Query the table to verify insertion
+    with engine.connect() as conn:
         df = pd.read_sql_query(query, conn)
         print(df)
+
     return {
             'statusCode': 200,
             'body'      : json.dumps({'result': result})

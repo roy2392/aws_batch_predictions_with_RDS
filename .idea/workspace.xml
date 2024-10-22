@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07b75e94-bc3a-44c2-a73b-a179e9bea1f2" name="Changes" comment="" />
+    <list default="true" id="07b75e94-bc3a-44c2-a73b-a179e9bea1f2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lambda_s3_to_postgres_rds.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lambda_s3_to_postgres_rds.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,7 +97,7 @@
       <updated>1728219364764</updated>
       <workItem from="1728219366526" duration="6012000" />
       <workItem from="1728496206986" duration="2457000" />
-      <workItem from="1729587602361" duration="7584000" />
+      <workItem from="1729587602361" duration="9280000" />
     </task>
     <servers />
   </component>
@@ -121,6 +124,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/aws_batch_predictions_with_RDS$diagram.coverage" NAME="diagram Coverage Results" MODIFIED="1729595157964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/aws_batch_predictions_with_RDS$spamclassifierapi.coverage" NAME="lambda_s3_to_postgres_rds Coverage Results" MODIFIED="1729594035761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/aws_batch_predictions_with_RDS$spamclassifierapi.coverage" NAME="lambda_s3_to_postgres_rds Coverage Results" MODIFIED="1729596958205" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
